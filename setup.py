@@ -15,7 +15,7 @@ setup(
     ],
     zip_safe=True,
     install_requires=[
-        'fabric (>=1.4)',
+        'fabric',
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
