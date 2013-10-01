@@ -5,6 +5,9 @@ import os
 import time
 
 
+__all__ = ['backup_db', ]
+
+
 def mysqldump(db):
     date = time.strftime('%Y%m%d')
     dump_file = '/tmp/%(database)s-%(date)s.sql' % {'database': db['name'],
