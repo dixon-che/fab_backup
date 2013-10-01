@@ -1,0 +1,28 @@
+from fabric.api import *
+
+
+env.backup_db_list = [{'engine': 'mysql',
+                       'name': '',
+                       'user': 'root',
+                       'password': 'root',
+                       'host': 'localhost'},
+                      # {'engine': 'postgresql',
+                      #  'name': '',
+                      #  'user': 'root',
+                      #  'password': 'root',
+                      #  'host': 'localhost'}
+                       ]
+
+env.backup_remote_store = {'user': 'root',
+                           'password': '',
+                           'host': '',
+                           'port': '22',
+                           'path': '',
+                           'mount_point': 'backup',
+                           'sub_path_db': 'db',
+                           'sub_path_files': 'files'}
+
+env.backup_files_list = [{'localpath': 'uploads',
+                          'path': '',
+                          '': '',
+                          }]
