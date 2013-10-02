@@ -10,6 +10,7 @@ setup(
     author_email='dixon.che@gmail.com',
     description='fab functions for backups db and files to remote server',
     long_description=__doc__,
+    zip_safe=True,
     py_modules=[
         'fab_backup'
     ],
