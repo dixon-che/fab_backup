@@ -106,8 +106,8 @@ def backup_files():
     for backup_files in env.backup_files_list:
         excludes = ''
         if backup_files.get('excludes'):
-            excludes = ' '.join(["--exclude " + e for e in backup_files['excludes']])
-        local('rsync -r -a -v --delete %s %s %s' %
+            excludes = ' '.join(["--exclude '%s'" % e for e in backup_files['excludes']])
+        local('rsync -r -v --delete %s %s %s' %
               (excludes, backup_files['localpath'], remote_dump_path))
 
     umount_remote_store()

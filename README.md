@@ -29,9 +29,11 @@ usage
 =====
 
 fab backup_db
-
+fab backup_files
 
 cron
 ====
 
     00 1    * * *   www-data cd /srv/www-data/project && source ~/.virtualenvs/project/bin/activate && fab backup_db
+
+    00 1    * * *   www-data cd /srv/www-data/project && source ~/.virtualenvs/project/bin/activate && fab backup_files
