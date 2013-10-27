@@ -23,6 +23,5 @@ env.backup_remote_store = {'user': 'root',
                            'sub_path_files': 'files'}
 
 env.backup_files_list = [{'localpath': 'uploads',
-                          'path': '',
-                          '': '',
-                          }]
+                          'excludes': ['_*', '__*']},
+                        ]

@@ -5,7 +5,7 @@ import os
 import time
 
 
-__all__ = ['backup_db', ]
+__all__ = ['backup_db', 'backup_files']
 
 
 def mysqldump(db):
@@ -26,6 +26,14 @@ def psqldump(db):
 
 
 def mongodbdump(db):
+    """
+    mongoexport -db wimoto_stage --collection entry_categories --out entry_categories.json
+mongoexport -db wimoto_stage --collection entries --out entries.json
+
+    run("mongoimport --db {0} --collection {1} {2};".format(
+        MONGO_DB_NAME, splited[0], file_path))
+
+    """
     pass
 
 
@@ -82,3 +90,24 @@ def copy_dumps_to_remote_store(dump_file_list):
 def backup_db():
     dump_file_list = make_local_dumps()
     copy_dumps_to_remote_store(dump_file_list)
+
+
+def backup_files():
+
+    remote_store_path = mount_remote_store()
+    date = time.strftime('%Y%W')
+    remote_dump_path = os.path.join(remote_store_path,
+                                    env.backup_remote_store['sub_path_files'],
+                                    date)
+
+    if not os.path.exists(remote_dump_path):
+        local('mkdir -p %s' % remote_dump_path)
+
+    for backup_files in env.backup_files_list:
+        excludes = ''
+        if backup_files.get('excludes'):
+            excludes = ' '.join(["--exclude " + e for e in backup_files['excludes']])
+        local('rsync -r -a -v --delete %s %s %s' %
+              (excludes, backup_files['localpath'], remote_dump_path))
+
+    umount_remote_store()
